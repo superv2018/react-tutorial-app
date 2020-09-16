@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import PropTypes from 'prop-types';
 
 const largeColumn = {
   width: '40%',
@@ -13,9 +14,9 @@ const smallColumn = {
   width: '10%',
 }
 
-const Table = ({ list, onDismiss, searchTerm, isSearched }) => 
+const Table = ({ list, sortKEY, onSort, onDismiss, sorts  }) => 
     <div className="table">
-      {list.filter(isSearched(searchTerm)).map((item) => 
+      {list.map((item) => 
           <div key={item.objectID} className="table-row">
             <span style={largeColumn}>
               <a href={item.url}>{item.title}</a>
@@ -29,6 +30,18 @@ const Table = ({ list, onDismiss, searchTerm, isSearched }) =>
       )}
     </div>
   
+  Table.propTypes = {
+    list: PropTypes.arrayOf(
+      PropTypes.shape({
+        objectID: PropTypes.string.isRequired,
+        author: PropTypes.string,
+        url: PropTypes.string,
+        num_comments: PropTypes.number,
+        points: PropTypes.number,
+      })
+    ).isRequired,
+    onDismiss: PropTypes.func.isRequired,
+  }
 
 
 export default Table;
